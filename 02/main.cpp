@@ -48,7 +48,7 @@ inline void firstTask(void) {
 
 inline int getDiffs(string s1, string s2) {
   int diffs = 0;
-  for (size_t i = 0; i < s1.length(); i++) {
+  for (string::size_type i = 0; i < s1.length(); i++) {
     if (s1[i] != s2[i])
       diffs += 1;
   }
@@ -57,7 +57,7 @@ inline int getDiffs(string s1, string s2) {
 
 inline string removeDiff(string s1, string s2) {
   string s = "";
-  for (size_t i = 0; i < s1.size(); i++) {
+  for (string::size_type i = 0; i < s1.size(); i++) {
     if (s1[i] == s2[i])
       s += s1[i];
   }
