@@ -7,6 +7,7 @@ class TxtReader {
 public:
   std::vector<int> getIntsFromFile(std::string);
   std::vector<std::string> getStringFromFile(std::string);
+  int getNumberOfRows(std::string);
 };
 
 #endif // TXTREADER_H

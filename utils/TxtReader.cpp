@@ -40,3 +40,19 @@ vector<string> TxtReader::getStringFromFile(string filename) {
   rows.shrink_to_fit();
   return rows;
 }
+int TxtReader::getNumberOfRows(string filename) {
+  ifstream input(filename);
+
+  string inputLine;
+  int number = 0;
+
+  if (input.is_open()) {
+    while (getline(input, inputLine)) {
+      number += 1;
+    }
+    input.close();
+  } else {
+    cout << "File not found" << endl;
+  }
+  return number;
+}
