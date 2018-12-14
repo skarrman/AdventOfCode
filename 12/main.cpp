@@ -75,5 +75,7 @@ int main() {
 
   cout << getPlats(state, offset) << endl;
 
+  // 5000 -> 432414 and 50000 -> 4302414 => 500000000000 -> 4300000002414
+
   return 0;
 }
