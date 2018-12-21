@@ -26,13 +26,18 @@ inline void firstTask(vector<size_t> recepies) {
 inline void secondTask(vector<size_t> recepies) {
   size_t firstElf = 0;
   size_t secondElf = 1;
-  vector<size_t> numberSecuence; // = 513401;
+  vector<size_t> numberSecuence; // = 513401; 59414 513401
   numberSecuence.push_back(5);
   numberSecuence.push_back(1);
   numberSecuence.push_back(3);
-  numberSecuence.push_back(0);
   numberSecuence.push_back(4);
+  numberSecuence.push_back(0);
   numberSecuence.push_back(1);
+  // numberSecuence.push_back(5);
+  // numberSecuence.push_back(9);
+  // numberSecuence.push_back(4);
+  // numberSecuence.push_back(1);
+  // numberSecuence.push_back(4);
 
   bool match = false;
   size_t secuenceIndex = 0;
@@ -47,14 +52,32 @@ inline void secondTask(vector<size_t> recepies) {
     secondElf = (secondElf + recepies[secondElf] + 1) % recepies.size();
 
     if (recepies.size() > numberSecuence.size()) {
-      for (size_t i = 0; i < recepies.size() - numberSecuence.size(); i++) {
+      match = true;
+      size_t i = 0;
+      for (size_t j = recepies.size() - numberSecuence.size();
+           j < recepies.size(); j++) {
+        if (recepies[j] != numberSecuence[i]) {
+          match = false;
+          break;
+        }
+        i++;
+      }
+      if (match) {
+        secuenceIndex = recepies.size() - numberSecuence.size();
+        break;
+      } else {
+        i = 0;
         match = true;
-        for (size_t j = 0; j < numberSecuence.size(); j++) {
-          if (recepies[i + j] != numberSecuence[j])
+        for (size_t j = recepies.size() - numberSecuence.size() - 1;
+             j < recepies.size() - 1; j++) {
+          if (recepies[j] != numberSecuence[i]) {
             match = false;
+            break;
+          }
+          i++;
         }
         if (match) {
-          secuenceIndex = i;
+          secuenceIndex = recepies.size() - numberSecuence.size() - 1;
           break;
         }
       }
