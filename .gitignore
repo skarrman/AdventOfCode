@@ -39,6 +39,9 @@
 *.out
 *.app
 
+# Test binary, built with `go test -c`
+*.test
+
 input.txt
 test.txt
 sortedInput.txt
