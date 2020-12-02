@@ -1,6 +1,8 @@
 use serde::Deserialize;
 use std::fs;
 
+//Takes input in form of a JSON file formatted as: { "data": [numbers...]}
+
 const TARGET: i32 = 2020;
 
 #[derive(Deserialize)]
@@ -17,22 +19,17 @@ fn get_data() -> Vec<i32> {
 
 fn search(data: &Vec<i32>, mut i: usize, term: i32) -> i32 {
     let mut j = data.len() - 1;
-    if loop {
+    loop {
         let sum = data[i] + data[j] + term;
-        if sum < TARGET {
+        if i == j {
+            break 0;
+        } else if sum < TARGET {
             i += 1;
         } else if sum > TARGET {
             j -= 1;
         } else {
-            break true;
+            break data[i] * data[j];
         }
-        if i >= j {
-            break false;
-        }
-    } {
-        data[i] * data[j]
-    } else {
-        0
     }
 }
 

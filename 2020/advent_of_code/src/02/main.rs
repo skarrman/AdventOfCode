@@ -1,6 +1,12 @@
 use serde::Deserialize;
 use std::fs;
 
+//Takes input in form of a JSON file formatted as:
+// { "data": [
+//            {"low": 0, "high", 1, "letter": "a", "pwd": "asd" }
+//          ]
+//}
+
 #[derive(Deserialize)]
 struct Input {
     data: Vec<Password>,
