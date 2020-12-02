@@ -43,6 +43,7 @@
 *.test
 
 input.txt
+input.json
 test.txt
 sortedInput.txt
 
