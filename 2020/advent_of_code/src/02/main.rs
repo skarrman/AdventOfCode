@@ -36,7 +36,7 @@ fn password_position(pwd: &Password) -> bool {
     let fst = pwd.pwd.chars().nth(pwd.low - 1).unwrap();
     let snd = pwd.pwd.chars().nth(pwd.high - 1).unwrap();
     let letter = pwd.letter;
-    fst == letter && snd != letter || fst != letter && snd == letter
+    (fst == letter) ^ (snd == letter)
 }
 
 fn main() {
