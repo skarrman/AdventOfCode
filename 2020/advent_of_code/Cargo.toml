@@ -43,3 +43,7 @@ path = "src/07/main.rs"
 [[bin]]
 name = "boot_code"
 path = "src/boot_code/main.rs"
+
+[[bin]]
+name = "09"
+path = "src/09/main.rs"
