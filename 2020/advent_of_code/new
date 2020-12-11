@@ -1,0 +1,27 @@
+#!/bin/bash
+if [ "$1" == "" ]; then
+  echo "Error: input day"
+  exit -1
+fi
+path="src/$1"
+mkdir -p $path
+touch $path/main.rs
+touch $path/input.txt
+printf "\n\n[[bin]]\nname = \"%s\"\npath = \"%s/main.rs\""  "$1" "$path" >> Cargo.toml
+printf "use std::fs;
+
+fn get_data() -> Vec<String> {
+    let path = \"%s/input.txt\";
+    let file_contents = fs::read_to_string(path).expect(\"Could not read file\");
+    file_contents
+        .split(\"\\\n\")
+        .map(|row| row.to_string())
+        .collect()
+}
+
+fn main() {
+    let data = get_data();
+    println!(\"First problem: {}\", -1);
+    println!(\"Second problem: {}\", -1);
+}" "$path" >> $path/main.rs
+
