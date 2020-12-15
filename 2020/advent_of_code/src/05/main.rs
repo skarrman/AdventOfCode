@@ -22,12 +22,9 @@ fn main() {
     let mut ids: Vec<i32> = get_input();
     ids.sort();
     println!("Fist challenge: {}", ids.last().unwrap());
-    let mut i = 1;
-    let place = loop {
-        if ids[i] - ids[i - 1] > 1 {
-            break ids[i - 1] + 1;
-        }
-        i += 1;
-    };
+    let place = ids
+        .windows(2)
+        .filter(|_ids| _ids[1] - _ids[0] > 1)
+        .fold(-1, |_, _ids| _ids[0] + 1);
     println!("Second challenge: {}", place);
 }
