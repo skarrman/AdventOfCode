@@ -12,12 +12,10 @@ fn get_data() -> Vec<i32> {
 
 fn main() {
     let data = get_data();
-    let (mut num, mut turn) = (-1, 0);
+    let (mut num, mut turn) = (data[0], 1);
     let mut hist: HashMap<i32, i32> = HashMap::new();
-    for n in data {
-        if num != -1 {
-            hist.insert(num, turn);
-        }
+    for &n in data.iter().skip(1) {
+        hist.insert(num, turn);
         num = n;
         turn += 1;
     }
