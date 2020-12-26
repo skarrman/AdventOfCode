@@ -1,5 +1,4 @@
 use std::collections::HashSet;
-use std::env;
 use std::fs;
 extern crate regex;
 
@@ -25,8 +24,8 @@ struct State {
     acc: i32,
 }
 
-fn read_code_file(file: String) -> Vec<Code> {
-    let file_contents = fs::read_to_string(file).expect("Could not read file");
+fn read_code_file() -> Vec<Code> {
+    let file_contents = fs::read_to_string("src/08/input.txt").expect("Could not read file");
     file_contents
         .split("\n")
         .fold(Vec::new(), |mut prg, code_str| {
@@ -60,23 +59,12 @@ fn eval_code(code: &Code, mut state: State) -> State {
 }
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
-    let day = args[1].parse::<i32>().unwrap();
-    let path = format!("src/boot_code/{}.txt", day);
-    let prg = read_code_file(path);
-    let (res1, res2) = match day {
-        8 => (run8_1(&prg), run8_2(&prg)),
-        _ => panic!("Day not exist"),
-    };
-    println!(
-        "Day {}:\n\tFirst problem: {}\n\tSecond problem: {}",
-        day, res1, res2
-    );
+    let prg = read_code_file();
+    println!("First problem: {}", run_fst(&prg));
+    println!("Second problem: {}", run_snd(&prg));
 }
 
-// Specific day problems:
-
-fn run8_1(prg: &Vec<Code>) -> i32 {
+fn run_fst(prg: &Vec<Code>) -> i32 {
     let (mut state, mut hist): (State, HashSet<usize>) = (State { pc: 0, acc: 0 }, HashSet::new());
     while !hist.contains(&state.pc) {
         hist.insert(state.pc);
@@ -95,7 +83,7 @@ fn is_nop_or_jmp(prg: &Vec<Code>, i: usize, is_nop: bool) -> bool {
     }
 }
 
-fn run8_2(prg: &Vec<Code>) -> i32 {
+fn run_snd(prg: &Vec<Code>) -> i32 {
     let mut nop = true;
     let mut i = 0;
     loop {

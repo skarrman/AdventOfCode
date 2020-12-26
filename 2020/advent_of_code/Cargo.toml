@@ -41,8 +41,8 @@ name = "07"
 path = "src/07/main.rs"
 
 [[bin]]
-name = "boot_code"
-path = "src/boot_code/main.rs"
+name = "08"
+path = "src/08/main.rs"
 
 [[bin]]
 name = "09"
