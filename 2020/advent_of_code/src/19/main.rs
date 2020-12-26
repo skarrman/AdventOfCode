@@ -59,39 +59,69 @@ fn get_data() -> (HashMap<usize, Rule>, Vec<String>) {
     )
 }
 
-fn valid(rules: &HashMap<usize, Rule>, rule: &Rule, mut input: String) -> (bool, String) {
-    match rule {
-        Rule::Let(l) => {
-            if input.len() > 0 {
-                (
-                    input.chars().next().unwrap() == *l,
-                    input.chars().skip(1).collect(),
-                )
-            } else {
-                (false, "empty".to_string())
+fn valid(
+    rules: &HashMap<usize, Rule>,
+    rule: &Rule,
+    input: String,
+    depth: usize,
+) -> (bool, Vec<String>) {
+    if depth >= 1000 {
+        (false, Vec::new())
+    } else {
+        match rule {
+            Rule::Let(l) => {
+                if input.len() > 0 {
+                    (
+                        input.chars().next().unwrap() == *l,
+                        vec![input.chars().skip(1).collect()],
+                    )
+                } else {
+                    (false, vec![])
+                }
             }
-        }
-        Rule::Ref(refs) => {
-            for rule in refs {
-                match valid(rules, rules.get(rule).unwrap(), input) {
-                    (true, _input) => {
-                        input = _input;
+            Rule::Ref(refs) => {
+                let mut inputs = vec![input];
+                for rule in refs {
+                    let mut _inputs = Vec::new();
+                    for input in &inputs {
+                        match valid(
+                            rules,
+                            rules.get(rule).unwrap(),
+                            input.to_string(),
+                            depth + 1,
+                        ) {
+                            (true, _input) => {
+                                _inputs.extend(_input);
+                            }
+                            _ => (),
+                        };
                     }
-                    r => return r,
-                };
+                    if _inputs.len() == 0 {
+                        return (false, Vec::new());
+                    }
+                    inputs = _inputs;
+                }
+                (true, inputs)
             }
-            (true, input)
+            Rule::Or(r1, r2) => {
+                let (v1, s1) = valid(rules, r1, input.clone(), depth + 1);
+                let (v2, s2) = valid(rules, r2, input, depth + 1);
+                let mut ss = Vec::new();
+                if v1 {
+                    ss.extend(s1);
+                }
+                if v2 {
+                    ss.extend(s2);
+                }
+                (v1 || v2, ss)
+            }
         }
-        Rule::Or(r1, r2) => match valid(rules, r1, input.clone()) {
-            (false, _) => valid(rules, r2, input),
-            res => res,
-        },
     }
 }
 
 fn check_valid(rules: &HashMap<usize, Rule>, input: String) -> bool {
-    match valid(rules, rules.get(&0).unwrap(), input.clone()) {
-        (true, s) if s.len() == 0 => true,
+    match valid(rules, rules.get(&0).unwrap(), input.clone(), 0) {
+        (true, ss) if ss.iter().fold(false, |res, s| res || s.len() == 0) => true,
         _ => false,
     }
 }
