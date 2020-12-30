@@ -38,5 +38,5 @@ fn main() {
     let (enc1, enc2) = (transform(key2, loop1), transform(key1, loop2));
     assert_eq!(enc1, enc2);
     println!("First problem: {}", enc2);
-    println!("Second problem: {}", -1);
+    println!("Woho! All problems solved!");
 }
