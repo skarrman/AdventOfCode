@@ -6,6 +6,8 @@
 
 2020: Rust
 
+2021: Rust, F#, JavaScript, Python, C++, C#, Kotlin, Java, Dart, Go
+
 ```
                        .--------.
   *               .    |________|        .          *
