@@ -8,6 +8,8 @@
 
 2021: Rust, F#, JavaScript, Python, C++, C#, Kotlin, Java, Dart, Go
 
+2022: Rust, F#, Python, C#, Swift, TypeScript, Scala, Java, Kotlin, Go, C++, C, JavaScript, Dart
+
 ```
                        .--------.
   *               .    |________|        .          *
